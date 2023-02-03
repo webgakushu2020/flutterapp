@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // ----------------------------------------
-// 文字を表示しよう //zoe branch反映テスト
+// 文字を表示しよう
 // ----------------------------------------
 // ignore: camel_case_types
 class NextPage_text extends StatelessWidget {
