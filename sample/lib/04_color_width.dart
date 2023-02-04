@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
 class NextPage_color extends StatelessWidget {
-  // This widget is the root of your application.
+  const NextPage_color({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +21,7 @@ class NextPage_color extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 

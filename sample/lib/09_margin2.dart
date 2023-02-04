@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 // ----------------------------------------
 
 class NextPage_margin2 extends StatelessWidget {
-  // This widget is the root of your application.
+  const NextPage_margin2({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +22,7 @@ class NextPage_margin2 extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
