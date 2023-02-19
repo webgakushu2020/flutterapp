@@ -66,4 +66,4 @@ class TodoListPage extends StatelessWidget {
 
 - [ ] 実行して、「リスト一覧」の文字が表示されること  
 
-![結果](origin/01_result.png)
+![結果](img/01_result.png)

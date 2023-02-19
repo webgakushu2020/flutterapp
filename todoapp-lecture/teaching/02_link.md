@@ -20,7 +20,7 @@
 
 画面スタック領域（箱みたいなもの）に画面の情報が書き込まれます。PUSHすると画面スタック領域に順番に重なり合うように画面の情報が書き込まれ、この時一番上の画面情報が表示される仕組みです。
 
-![結果](origin/02c_link.png)
+![結果](img/02c_link.png)
 
 #### **【ソースコード】**
 
@@ -91,4 +91,4 @@ class TodoAddPage extends StatelessWidget {
 
 - [ ] 画面右下にボタンが表示されること
 
-![結果](origin/02_result.png)
+![結果](img/02_result.png)

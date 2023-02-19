@@ -172,5 +172,5 @@ class _TodoAddPageState extends State<TodoAddPage> {
 
 - [ ] リスト追加ボタンを押すと、前の画面に戻ること
 
-![結果](origin/10_datasend1.png)
-![結果](origin/10_datasend2.png)
+![結果](img/10_datasend1.png)
+![結果](img/10_datasend2.png)

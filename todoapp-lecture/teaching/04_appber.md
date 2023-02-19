@@ -11,7 +11,7 @@
 
 ※※難しい場合は、下記ソースコードの「//★」の部分を見ながら追加してみよう
 
-![課題画像](origin/04_result.png)
+![課題画像](img/04_result.png)
   
 #### **【ポイント】**
 
@@ -99,4 +99,4 @@ class TodoAddPage extends StatelessWidget {
 
 - [ ] 画面上部にAppBerが表示されること
 
-![結果](origin/04_result.png)
+![結果](img/04_result.png)

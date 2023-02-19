@@ -172,4 +172,4 @@ class _TodoAddPageState extends State<TodoAddPage> {
 
 - [ ] 入力したテキストが入力フィールドの上に表示されること
 
-![結果](origin/09_result.png)
+![結果](img/09_result.png)

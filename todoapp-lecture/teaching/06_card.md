@@ -10,7 +10,7 @@
 - 下記の画面と同じ表示になるように修正しましょう
 - 下記ソースコードの「//★」の部分を見ながら追加してみよう
 
-![課題画像](origin/06_result.png)
+![課題画像](img/06_result.png)
   
 #### **【ポイント】**
 
@@ -118,4 +118,4 @@ class TodoAddPage extends StatelessWidget {
 
 - [ ] リストの表示デザインがCardになっていること
 
-![結果](origin/06_result.png)
+![結果](img/06_result.png)

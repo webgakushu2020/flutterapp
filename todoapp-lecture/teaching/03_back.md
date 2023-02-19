@@ -17,7 +17,7 @@
 
 popはスタック領域の一番上の画面情報を取り出す仕組みです。取り出された後にスタック領域の一番上にある画面情報が表示されます。
 
-![結果](origin/02c_link.png)
+![結果](img/02c_link.png)
 
 #### **【ソースコード】**
 
@@ -88,4 +88,4 @@ class TodoAddPage extends StatelessWidget {
 
 - [ ] 「リスト追加画面（クリックで戻る）」ボタンが表示され、クリックすると元の画面に戻ること
 
-![結果](origin/03_result.png)
+![結果](img/03_result.png)

@@ -149,4 +149,4 @@ class TodoAddPage extends StatelessWidget {
 - [ ] AppBer、リスト入力、リスト追加ボタンが表示されること
 - [ ] 入力項目に文字が入力できること
 
-![結果](origin/07_result.png)
+![結果](img/07_result.png)

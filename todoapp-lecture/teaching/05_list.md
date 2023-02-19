@@ -11,7 +11,7 @@
 
 ※※難しい場合は、下記ソースコードの「//★」の部分を見ながら追加してみよう
 
-![課題画像](origin/05_result.png)
+![課題画像](img/05_result.png)
   
 #### **【ポイント】**
 
@@ -105,4 +105,4 @@ class TodoAddPage extends StatelessWidget {
 
 - [ ] リスト表示されること
 
-![結果](origin/05_result.png)
+![結果](img/05_result.png)
