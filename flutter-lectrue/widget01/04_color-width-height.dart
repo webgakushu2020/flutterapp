@@ -1,3 +1,12 @@
+/*----------------------------------
+
+背景色をつけ、高さと幅を設定しよう！
+
+①全体の背景色を追加
+②プロフィール欄に幅と高さをつける
+
+----------------------------------*/
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -9,18 +18,14 @@ class MyApp extends StatelessWidget {
       title: 'Profile',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
+          // ★：①全体の背景色を追加
           backgroundColor: Colors.yellow.shade50,
           appBar: AppBar(title: const Text('自己紹介')),
           body: Center(
             child: Container(
+              // ★：②プロフィール欄に幅と高さをつける
               width: 300,
               height: 500,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.brown, width: 2),
-                  borderRadius: BorderRadius.circular(10)),
-              // ★：①paddingで、上下左右全ての方向に余白をつける
-              padding: EdgeInsets.all(20),
               child: Column(
                 children: [
                   Row(
