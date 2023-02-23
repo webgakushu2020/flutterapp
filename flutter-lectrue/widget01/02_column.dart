@@ -1,3 +1,12 @@
+/*----------------------------------
+
+要素を縦に並べよう！
+
+①Columnを追加（Ctrl + . を活用しよう！）
+②Childrenに配列を作り、中にTextを並べる
+
+----------------------------------*/
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

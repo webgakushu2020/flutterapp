@@ -1,3 +1,14 @@
+/*----------------------------------
+
+borderをつけよう！
+
+①Containerにdecorationを設定する
+②プロフィール欄に幅と高さをつける
+③ボーダーをつける
+④ボーダーに丸みをつける
+
+----------------------------------*/
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -9,14 +20,23 @@ class MyApp extends StatelessWidget {
       title: 'Profile',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
+          backgroundColor: Colors.yellow.shade50,
           appBar: AppBar(title: const Text('自己紹介')),
           body: Center(
             child: Container(
+              width: 300,
+              height: 500,
+              // ★：①Containerにdecorationを設定する
+              decoration: BoxDecoration(
+                  // ★：②背景色を設定
+                  color: Colors.white,
+                  // ★：③ボーダーをつける
+                  border: Border.all(color: Colors.brown, width: 2),
+                  // ★：④ボーダーに丸みをつける
+                  borderRadius: BorderRadius.circular(10)),
               child: Column(
                 children: [
-                  // ★：①childrenの中にRow()を入れる
                   Row(
-                    // ★：②childrenの中にTextを入れる（①②を全てに対し行う）
                     children: [Text('名前'), Text('ぞえ')],
                   ),
                   Row(
