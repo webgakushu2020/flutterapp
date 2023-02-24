@@ -46,18 +46,22 @@ var number = 21;
 if (number XXX 20){
   print('numberは20よりも大きい');
 }
+＊＊numberを20に変えたとき、文字列が表示されないこと
 
 ④−2
 var time = 9;
 if (time XXX 9){
   print('timeは9よりも小さいか9と同じ');
 }
+**timeを8に変えたとき、文字列が表示されること
 
 ④-3
 var ball = 100;
 if (ball XXX 100){
   print('ballの数は100以上です');
 }
+**ballを101に変えたとき、文字列が表示されること
+
 
 --------------------
 問題⑤ 条件複数　
