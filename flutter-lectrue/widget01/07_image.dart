@@ -8,7 +8,7 @@
 一番下（flutter ブロックの中。assets:の前は必ず空白スペースをあけて）に以下を追記
 
 assets:
-  - images
+  - images/
 
 
 ②imageを追加
