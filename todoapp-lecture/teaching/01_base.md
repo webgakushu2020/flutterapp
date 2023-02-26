@@ -9,6 +9,13 @@
 - [ ] 新しくプロジェクトを作成
 - todoappという名前でプロジェクトを作成
 
+- [ ] constの警告が出ない設定にする
+- analysis_options.yamlの「rules:」にコードを追加
+
+```Dart
+  rules:
+    prefer_const_constructors: false
+```
 - [ ] 下記のソースコードを写経
 - 最初にmain.dartのコードを全て削除してから書こう
 
