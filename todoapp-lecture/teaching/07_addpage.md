@@ -4,10 +4,21 @@
 
 ### TodoAddPage画面のレイアウトを作成
 
-1. AppBer追加
-2. 入力項目の追加
-3. 追加ボタンの追加
-4. キャンセルボタンの追加
+1. appBarを追加
+2. Center→Containerに変更
+3. paddingで余白をつける
+4. childにColumnを入れる
+5. 垂直方向の揃えを中央にする
+6. childrenを作り、追加画面を作成
+7. 入力するためのテキストフィールドを作る
+8. 余白を作成
+9. Containerを作る
+10. 横幅をいっぱいに設定する
+11. リスト追加ボタンを作る
+12. 余白を作成
+13. Containerを作る
+14. キャンセルボタンを作る
+15. 文字の変更
 
 #### **【課題】**
 
@@ -15,7 +26,7 @@
   
 #### **【ポイント】**
 
-- XXXXXXXXXXXXXX
+- 「どのClass（ページ）を操作しているのか？」や「何を作っているのか？」を意識して書こう！
   
 #### **【ソースコード】**
 
@@ -100,45 +111,53 @@ class TodoAddPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //★①
+      // ★①appBarを追加
       appBar: AppBar(
         title: Text('リスト追加'),
       ),
-      //★②③④ここから
+      // ★②Center→Containerに変更
       body: Container(
-        //余白をつける
-        padding: EdgeInsets.all(64),
+        // ★③paddingで余白をつける
+        padding: EdgeInsets.all(60),
+        // ★④childにColumnを入れる
         child: Column(
+          // ★⑤垂直方向の揃えを中央にする
           mainAxisAlignment: MainAxisAlignment.center,
+          // ★⑥childrenを作り、追加画面を作成
           children: [
-            //テキスト入力
+            // ★⑦入力するためのテキストフィールドを作る
             TextField(),
+            // ★⑧余白を作成
             SizedBox(height: 8),
-            // ignore: sized_box_for_whitespace
+            // ★⑨Containerを作る
             Container(
-              //横幅いっぱいに広げる
+              // ★⑩横幅をいっぱいに設定する
               width: double.infinity,
-              //リスト追加ボタン
+              // ★11.リスト追加ボタンを作る
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text('リスト追加', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'リスト追加',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
+            // ★12.余白を作成
             SizedBox(height: 8),
-            // ignore: sized_box_for_whitespace
+            // ★13.Containerを作る
             Container(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('キャンセル'),
-              ),
-            ),
+                // ★14.キャンセルボタンを作る
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  // ★15.文字の変更
+                  child: Text('キャンセル'),
+                ))
           ],
         ),
       ),
-      //★②③④ここまで
     );
   }
 }

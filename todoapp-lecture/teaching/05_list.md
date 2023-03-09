@@ -46,6 +46,7 @@ class MyTodoApp extends StatelessWidget {
   }
 }
 
+
 class TodoListPage extends StatelessWidget {
   const TodoListPage({super.key});
 
@@ -55,32 +56,28 @@ class TodoListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('リスト一覧'),
       ),
-      //★① Center→ListViewに変更
+      // ★①Center→ListViewに変更
       body: ListView(
-        //★ リスト追加ここから
+        // ★②childreの中に、配列でTextを入れる
         children: const <Widget>[
           Text('にんじんを買う'),
           Text('タマネギを買う'),
           Text('ジャガイモを買う'),
           Text('カレールーを買う'),
         ],
-        //★ リスト追加ここまで
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Pushで新規画面に移動
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              //遷移先の画面としてリスト追加画面を指定
-              return TodoAddPage();
-            }),
-          );
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return TodoAddPage();
+          }));
         },
         child: Icon(Icons.add),
       ),
     );
   }
 }
+
 
 class TodoAddPage extends StatelessWidget {
   const TodoAddPage({super.key});
