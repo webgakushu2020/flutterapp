@@ -54,25 +54,25 @@ class TodoListPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Text('リスト一覧画面'),
-      ), //★ ②)「,」カンマがなければ追加
+      ), //★ ①)「,」カンマがなければ追加
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //★ ③Pushで新規画面に移動
+          //★ ②Pushで新規画面に移動
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
-              //★ ④遷移先の画面としてリスト追加画面を指定
+              //★ ③遷移先の画面としてリスト追加画面を指定
               return TodoAddPage();
             }),
           );
         },
-        //★ ⑤ボタンを追加
+        //★ ④ボタンを追加
         child: Icon(Icons.add),
       ),
     );
   }
 }
 
-//★ ①リスト追加画面のベースを作る
+//★ ⑤リスト追加画面のベースを作る
 class TodoAddPage extends StatelessWidget {
   const TodoAddPage({super.key});
 
