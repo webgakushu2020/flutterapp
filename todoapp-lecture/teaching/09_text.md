@@ -13,17 +13,14 @@
   
 #### **【ポイント】**
 
-- XXXXXXXXXXXXXX
+- 変数に変更を与えるきっかけと、出力される動作を学ぼう！
   
 #### **【ソースコード】**
-
-#### ★調査要 --- TextFiledにバグあり、入力した文字の変換がおかしい
 
 ```Dart
 import 'package:flutter/material.dart';
 
 void main() {
-  // 最初に表示するWidget
   runApp(MyTodoApp());
 }
 
@@ -33,13 +30,10 @@ class MyTodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // アプリ名
       title: 'My Todo App',
       theme: ThemeData(
-        // テーマカラー
         primarySwatch: Colors.blue,
       ),
-      // リスト一覧画面を表示
       home: TodoListPage(),
     );
   }
@@ -80,10 +74,8 @@ class TodoListPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Pushで新規画面に移動
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
-              //遷移先の画面としてリスト追加画面を指定
               return TodoAddPage();
             }),
           );
@@ -94,18 +86,15 @@ class TodoListPage extends StatelessWidget {
   }
 }
 
-//StatefulWidgetに変更　データを扱えるようにする
 class TodoAddPage extends StatefulWidget {
   const TodoAddPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _TodoAddPageState createState() => _TodoAddPageState();
 }
 
-//StatelessWidgetをStateに変更
 class _TodoAddPageState extends State<TodoAddPage> {
-  //① 変数宣言 型を指定して変数宣言
+  // ★①変数「_text」を宣言
   String _text = '';
 
   @override
@@ -115,57 +104,51 @@ class _TodoAddPageState extends State<TodoAddPage> {
         title: Text('リスト追加'),
       ),
       body: Container(
-        //余白をつける
-        padding: EdgeInsets.all(64),
+        padding: EdgeInsets.all(60),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //★①　ここから
-            //入力されたテキストを表示 ここから
+            // ★②テキストフィールドに入力されたテキストを表示する場所を作る
             Text(_text, style: TextStyle(color: Colors.blue)),
-            const SizedBox(height: 8),
-            //★ ここまで
+            // ★③余白を作る
+            SizedBox(height: 8),
 
-            //テキスト入力
+            //　★④テキストフィールドの設定
             TextField(
-              //★②　ここから
-              //入力されたテキストの値を受け取る　valueが入力されたテキスト
+              // ★⑤入力が変わったら、その度にテキストの値を受け取る
               onChanged: (String value) {
-                //データが変更したことを知らせる（画面を更新する）
                 setState(() {
                   _text = value;
                 });
               },
-              //★ ここまで
             ),
             SizedBox(height: 8),
-            // ignore: sized_box_for_whitespace
             Container(
-              //横幅いっぱいに広げる
               width: double.infinity,
-              //リスト追加ボタン
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text('リスト追加', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'リスト追加',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             SizedBox(height: 8),
-            // ignore: sized_box_for_whitespace
             Container(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('キャンセル'),
-              ),
-            ),
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('キャンセル'),
+                ))
           ],
         ),
       ),
     );
   }
 }
+
 ```
 
 #### **【結果】**

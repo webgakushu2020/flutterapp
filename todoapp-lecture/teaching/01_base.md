@@ -6,8 +6,8 @@
 
 #### **【課題】**
 
-- [ ] 新しくプロジェクトを作成
-- todoappという名前でプロジェクトを作成
+- [ ] projectsフォルダを開く
+- 「todoapp」という名前でプロジェクトを作成
 
 - [ ] constの警告が出ない設定にする
 - analysis_options.yamlの「rules:」にコードを追加

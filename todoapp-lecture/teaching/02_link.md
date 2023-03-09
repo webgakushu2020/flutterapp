@@ -13,8 +13,8 @@
 
 #### **【ポイント】**
 
-- [ ] ボタンを押したときの処理　onPress内に記述
-- [ ] 画面遷移先のclassを　pushで追加
+- [ ] ボタンを押したときの処理を、onPress内に記述
+- [ ] 画面遷移先のclassを、pushで追加
 
 #### **【解説】**
 
@@ -28,7 +28,6 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  // 最初に表示するWidget
   runApp(MyTodoApp());
 }
 
@@ -38,13 +37,10 @@ class MyTodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // アプリ名
       title: 'My Todo App',
       theme: ThemeData(
-        // テーマカラー
         primarySwatch: Colors.blue,
       ),
-      // リスト一覧画面を表示
       home: TodoListPage(),
     );
   }
@@ -58,31 +54,35 @@ class TodoListPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Text('リスト一覧画面'),
-      ), //★ ←カンマ追加から↓↓↓
+      ), //★ ②)「,」カンマがなければ追加
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Pushで新規画面に移動
+          //★ ③Pushで新規画面に移動
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
-              //遷移先の画面としてリスト追加画面を指定
+              //★ ④遷移先の画面としてリスト追加画面を指定
               return TodoAddPage();
             }),
           );
         },
+        //★ ⑤ボタンを追加
         child: Icon(Icons.add),
       ),
-      //★　ここまで
     );
   }
 }
 
-//★リスト追加画面のベースを作る
+//★ ①リスト追加画面のベースを作る
 class TodoAddPage extends StatelessWidget {
   const TodoAddPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Text('リスト一覧画面'),
+      ),
+    );
   }
 }
 ```

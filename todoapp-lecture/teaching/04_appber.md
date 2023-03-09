@@ -52,29 +52,25 @@ class TodoListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //★ここから
+      // ★①appBarと、その中にタイトルを追加
       appBar: AppBar(
         title: Text('リスト一覧'),
       ),
-      //★ここまで
       body: Center(
         child: Text('リスト一覧画面'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Pushで新規画面に移動
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              //遷移先の画面としてリスト追加画面を指定
-              return TodoAddPage();
-            }),
-          );
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return TodoAddPage();
+          }));
         },
         child: Icon(Icons.add),
       ),
     );
   }
 }
+
 
 class TodoAddPage extends StatelessWidget {
   const TodoAddPage({super.key});

@@ -92,22 +92,18 @@ class TodoListPage extends StatelessWidget {
   }
 }
 
-//★ StatefulWidgetに変更　データを扱えるようにする
-//★ ここから
+// ★①StatelessWidget→StatefulWidgetに変更
 class TodoAddPage extends StatefulWidget {
   const TodoAddPage({super.key});
 
   @override
-  //「_」から始まる変数はプライベート変数　他のクラスからアクセス不可となる
-  // ignore: library_private_types_in_public_api
+  // ★②}を閉じてから、プライベート変数（他のクラスからアクセスさせない変数）を作る
   _TodoAddPageState createState() => _TodoAddPageState();
 }
-//★ ここまで
 
-//★StatelessWidgetをStateに変更
-//★削除 class TodoListPage extends StatelessWidget {
-//★削除 const TodoAddPage({super.key});
+// ★③classの開始部分を作る
 class _TodoAddPageState extends State<TodoAddPage> {
+  // ★④overrideを記述
   @override
   Widget build(BuildContext context) {
     return Scaffold(

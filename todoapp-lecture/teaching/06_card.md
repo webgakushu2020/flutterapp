@@ -55,39 +55,32 @@ class TodoListPage extends StatelessWidget {
       ),
       body: ListView(
         children: const <Widget>[
-          //★ Cardを追加
+          // ★①TextをCard Widgetで囲う
           Card(
-            child: ListTile(
-              title: Text('にんじんを買う'),
-            ),
-          ),
+              // ★②ListTileの中にtitleを入れる
+              child: ListTile(
+            // ★③titleの次にTextを入れる
+            title: Text('にんじんを買う'),
+          )),
           Card(
-            child: ListTile(
-              title: Text('タマネギを買う'),
-            ),
-          ),
+              child: ListTile(
+            title: Text('タマネギを買う'),
+          )),
           Card(
-            child: ListTile(
-              title: Text('ジャガイモを買う'),
-            ),
-          ),
+              child: ListTile(
+            title: Text('ジャガイモを買う'),
+          )),
           Card(
-            child: ListTile(
-              title: Text('カレールーを買う'),
-            ),
-          ),
-          //★ここまで
+              child: ListTile(
+            title: Text('カレールーを買う'),
+          )),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Pushで新規画面に移動
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              //遷移先の画面としてリスト追加画面を指定
-              return TodoAddPage();
-            }),
-          );
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return TodoAddPage();
+          }));
         },
         child: Icon(Icons.add),
       ),
