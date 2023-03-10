@@ -4,7 +4,7 @@
 
 ### 入力されたテキストの扱い
 
-- StefulWidgetに変更
+- StatefulWidgetに変更
 
 #### **【課題】**
 
