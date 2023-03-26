@@ -31,7 +31,6 @@ class _StartPageState extends State<StartPage> {
             showDialog(
               context: context,
               builder: (context) {
-                // return const CustomDialog();
                 return const QuizListPage();
               },
             );
@@ -42,61 +41,6 @@ class _StartPageState extends State<StartPage> {
     );
   }
 }
-
-// class CustomDialog extends StatelessWidget {
-//   const CustomDialog({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       contentPadding: EdgeInsets.zero,
-//       insetPadding: const EdgeInsets.all(32),
-//       content: SizedBox(
-//         width: 400,
-//         child: Scaffold(
-//           appBar: AppBar(
-//             centerTitle: true,
-//             title: const Text('コース選択'),
-//           ),
-//           body: Center(
-//             child: Column(
-//               children: [
-//                 ElevatedButton(
-//                   onPressed: () {
-//                     //ダイアログ画面はpopする　問題表示画面から戻る時は初画面に戻すため
-//                     Navigator.of(context).pop();
-//                     Navigator.of(context).push(
-//                       MaterialPageRoute(
-//                         builder: (context) {
-//                           return const QuizListPage();
-//                         },
-//                       ),
-//                     );
-//                   },
-//                   child: const Text('簡単'),
-//                 ),
-//                 ElevatedButton(
-//                   onPressed: () {
-//                     //ダイアログ画面はpopする　問題表示画面から戻る時は初画面に戻すため
-//                     Navigator.of(context).pop();
-//                     Navigator.of(context).push(
-//                       MaterialPageRoute(
-//                         builder: (context) {
-//                           return const QuizListPage();
-//                         },
-//                       ),
-//                     );
-//                   },
-//                   child: const Text('普通'),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class QuizListPage extends StatefulWidget {
   const QuizListPage({super.key});
