@@ -100,6 +100,7 @@ class _QuizListPageState extends State<QuizListPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('$_answerdisp問目'),
+        automaticallyImplyLeading: false, //AppBerの戻るボタンは非表示
       ),
       body: Center(
         child: Column(
@@ -121,7 +122,8 @@ class _QuizListPageState extends State<QuizListPage> {
                 final returnText = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return AnswerPage(_kekka, _answercnt, _seikaicnt);
+                      //引数　①正解か不正解か　②何問目か　③正解した数
+                      return AnswerPage(_kekka, _answerdisp, _seikaicnt);
                     },
                   ),
                 );
@@ -152,7 +154,7 @@ class _QuizListPageState extends State<QuizListPage> {
                 final returnText = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return AnswerPage(_kekka, _answercnt, _seikaicnt);
+                      return AnswerPage(_kekka, _answerdisp, _seikaicnt);
                     },
                   ),
                 );
@@ -180,7 +182,7 @@ class _QuizListPageState extends State<QuizListPage> {
                 final returnText = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return AnswerPage(_kekka, _answercnt, _seikaicnt);
+                      return AnswerPage(_kekka, _answerdisp, _seikaicnt);
                     },
                   ),
                 );
@@ -208,9 +210,9 @@ class _QuizListPageState extends State<QuizListPage> {
 class AnswerPage extends StatefulWidget {
   // ここにイニシャライザを書く
   //元の画面からデータ受け取る
-  AnswerPage(this._kekka, this._answercnt, this._seikaicnt);
+  AnswerPage(this._kekka, this._answerdisp, this._seikaicnt);
   bool _kekka;
-  int _answercnt;
+  int _answerdisp;
   int _seikaicnt;
 
   @override
@@ -219,6 +221,8 @@ class AnswerPage extends StatefulWidget {
 
 class _AnswerPageState extends State<AnswerPage> {
   // ---------------関数--------------
+  //Widget内でDartの文法を直接かくことはできない、関数にする
+  //----- 正解不正解表示　-----
   Widget _kekkaText() {
     if (widget._kekka) {
       return Text('正解です');
@@ -227,8 +231,10 @@ class _AnswerPageState extends State<AnswerPage> {
     }
   }
 
+  //----- ボタンの表示を切り替える -----
+  //最終問題のときは「結果を表示」とする
   Widget _buttonText() {
-    if (widget._answercnt < 4) {
+    if (widget._answerdisp < 5) {
       return Text('次の問題');
     } else {
       return Text('結果を表示');
@@ -240,6 +246,7 @@ class _AnswerPageState extends State<AnswerPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('結果'),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
@@ -250,9 +257,9 @@ class _AnswerPageState extends State<AnswerPage> {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
-                if (widget._answercnt < 4) {
-                  //全画面へ戻る（何問目かを返す）　　AppBerから戻った場合はpopの引数なしで戻る
-                  Navigator.of(context).pop(widget._answercnt);
+                if (widget._answerdisp < 5) {
+                  //前画面へ戻る（何問目かを返す）
+                  Navigator.of(context).pop(widget._answerdisp);
                 } else {
                   // 最終問題の場合　結果画面へ遷移
                   Navigator.of(context).push(
@@ -288,6 +295,7 @@ class _KekkaPageState extends State<KekkaPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('総合結果'),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
