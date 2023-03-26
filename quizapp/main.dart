@@ -96,107 +96,109 @@ class _QuizListPageState extends State<QuizListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 400,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('$_answerdisp問目'),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              Text(quilist[_answercnt]["question"]),
-              ElevatedButton(
-                onPressed: () async {
-                  // 正解不正解の判定 正解:true 不正解:false
-                  // １番のボタンが正解の場合は「correct」の値が１
-                  if (quilist[_answercnt]["correct"] == 1) {
-                    _kekka = true;
-                    _seikaicnt++;
-                  } else {
-                    _kekka = false;
-                  }
-                  //AnswerPage からの戻り値をreturnTextに格納
-                  final returnText = await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return AnswerPage(_kekka, _answercnt, _seikaicnt);
-                      },
-                    ),
-                  );
-                  //AnswerPageから戻り値がある場合が次の問題にカウントアップ
-                  //AppBerから戻った場合はここは通らない（問題のカウントアップをしないので次の問題に切り替わらない）
-                  if (returnText != null) {
-                    //カウントアップした後再読み込み
-                    setState(() {
-                      _answercnt++;
-                      _answerdisp++;
-                    });
-                  }
-                },
-                child: Text(quilist[_answercnt]["answer1"]),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  // 正解不正解の判定 正解:true 不正解:false
-                  // ２番のボタンが正解の場合は「correct」の値が２
-                  if (quilist[_answercnt]["correct"] == 2) {
-                    _kekka = true;
-                    _seikaicnt++;
-                  } else {
-                    _kekka = false;
-                  }
-                  //AnswerPage からの戻り値をreturnTextに格納
-                  final returnText = await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return AnswerPage(_kekka, _answercnt, _seikaicnt);
-                      },
-                    ),
-                  );
-                  if (returnText != null) {
-                    setState(() {
-                      _answercnt++;
-                      _answerdisp++;
-                    });
-                  }
-                },
-                child: Text(quilist[_answercnt]["answer2"]),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  // 正解不正解の判定 正解:true 不正解:false
-                  // １番のボタンが正解の場合は「correct」の値が３
-                  if (quilist[_answercnt]["correct"] == 3) {
-                    _kekka = true;
-                    _seikaicnt++;
-                  } else {
-                    _kekka = false;
-                  }
-                  //AnswerPage からの戻り値をreturnTextに格納
-                  final returnText = await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return AnswerPage(_kekka, _answercnt, _seikaicnt);
-                      },
-                    ),
-                  );
-                  if (returnText != null) {
-                    setState(() {
-                      _answercnt++;
-                      _answerdisp++;
-                    });
-                  }
-                },
-                child: Text(quilist[_answercnt]["answer3"]),
-              ),
-              ElevatedButton(
-                onPressed: Navigator.of(context).pop,
-                child: const Text('startに戻る'),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('$_answerdisp問目'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Text(quilist[_answercnt]["question"]),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () async {
+                // 正解不正解の判定 正解:true 不正解:false
+                // １番のボタンが正解の場合は「correct」の値が１
+                if (quilist[_answercnt]["correct"] == 1) {
+                  _kekka = true;
+                  _seikaicnt++;
+                } else {
+                  _kekka = false;
+                }
+                //AnswerPage からの戻り値をreturnTextに格納
+                final returnText = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AnswerPage(_kekka, _answercnt, _seikaicnt);
+                    },
+                  ),
+                );
+                //AnswerPageから戻り値がある場合が次の問題にカウントアップ
+                //AppBerから戻った場合はここは通らない（問題のカウントアップをしないので次の問題に切り替わらない）
+                if (returnText != null) {
+                  //カウントアップした後再読み込み
+                  setState(() {
+                    _answercnt++;
+                    _answerdisp++;
+                  });
+                }
+              },
+              child: Text(quilist[_answercnt]["answer1"]),
+            ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () async {
+                // 正解不正解の判定 正解:true 不正解:false
+                // ２番のボタンが正解の場合は「correct」の値が２
+                if (quilist[_answercnt]["correct"] == 2) {
+                  _kekka = true;
+                  _seikaicnt++;
+                } else {
+                  _kekka = false;
+                }
+                //AnswerPage からの戻り値をreturnTextに格納
+                final returnText = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AnswerPage(_kekka, _answercnt, _seikaicnt);
+                    },
+                  ),
+                );
+                if (returnText != null) {
+                  setState(() {
+                    _answercnt++;
+                    _answerdisp++;
+                  });
+                }
+              },
+              child: Text(quilist[_answercnt]["answer2"]),
+            ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () async {
+                // 正解不正解の判定 正解:true 不正解:false
+                // １番のボタンが正解の場合は「correct」の値が３
+                if (quilist[_answercnt]["correct"] == 3) {
+                  _kekka = true;
+                  _seikaicnt++;
+                } else {
+                  _kekka = false;
+                }
+                //AnswerPage からの戻り値をreturnTextに格納
+                final returnText = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AnswerPage(_kekka, _answercnt, _seikaicnt);
+                    },
+                  ),
+                );
+                if (returnText != null) {
+                  setState(() {
+                    _answercnt++;
+                    _answerdisp++;
+                  });
+                }
+              },
+              child: Text(quilist[_answercnt]["answer3"]),
+            ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: Navigator.of(context).pop,
+              child: const Text('startに戻る'),
+            ),
+          ],
         ),
       ),
     );
@@ -239,11 +241,13 @@ class _AnswerPageState extends State<AnswerPage> {
       appBar: AppBar(
         title: Text('結果'),
       ),
-      body: Container(
+      body: Center(
         child: Column(
           children: [
+            const SizedBox(height: 8),
             //Widgetの中でDart使う場合は関数を作ってTextを返す
             _kekkaText(),
+            const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
                 if (widget._answercnt < 4) {
@@ -285,12 +289,15 @@ class _KekkaPageState extends State<KekkaPage> {
       appBar: AppBar(
         title: Text('総合結果'),
       ),
-      body: Container(
+      body: Center(
         child: Column(
           children: [
+            const SizedBox(height: 8),
             // intからstring型に変換して表示
             Text(widget._seikaicnt.toString() + '問正解です'),
+            const SizedBox(height: 8),
             Text('おつかれさまでした!'),
+            const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
