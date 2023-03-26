@@ -11,7 +11,7 @@
 
 #### **【ポイント】**
 
-- 新しいページを作る時は「class:StatefulWidget」と「class:State<>」を作るところから始めよう
+- 新しい画面を作る時は「class:StatefulWidget」と「class:State<>」をセットで作ることを意識してみよう
 - 　
 
 #### **【ソースコード】**
