@@ -31,7 +31,6 @@ class _StartPageState extends State<StartPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  //引数　①正解か不正解か　②何問目か　③正解した数
                   return QuizListPage();
                 },
               ),
