@@ -51,11 +51,11 @@ class QuizListPage extends StatefulWidget {
 }
 
 class _QuizListPageState extends State<QuizListPage> {
-  //int _allcount = 5; //ステップアップ：配列の数を自動取得にする
+  bool _kekka = true; //正解：true 不正解：false
   int _answercnt = 0; //何問目かListのindexに使用
   int _answerdisp = 1; //何問目か表示用
-  bool _kekka = true; //正解：true 不正解：false
-  var _seikaicnt = 0; //正解した数をカウント
+  //★① 正解数をカウントする変数宣言
+  int _seikaicnt = 0; //正解した数をカウント
 
   List<Map<String, dynamic>> quilist = [
     {
@@ -63,7 +63,7 @@ class _QuizListPageState extends State<QuizListPage> {
       "answer1": "北岳",
       "answer2": "富士山",
       "answer3": "奥穂高岳",
-      "correct": 1
+      "correct": 2
     },
     {
       "question": "日本で１番長い川は？",
@@ -101,7 +101,7 @@ class _QuizListPageState extends State<QuizListPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('$_answerdisp問目'),
-        automaticallyImplyLeading: false, //AppBerの戻るボタンは非表示
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
@@ -111,25 +111,21 @@ class _QuizListPageState extends State<QuizListPage> {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () async {
-                // 正解不正解の判定 正解:true 不正解:false
-                // １番のボタンが正解の場合は「correct」の値が１
                 if (quilist[_answercnt]["correct"] == 1) {
                   _kekka = true;
+                  //★② 正解数をカウントする
                   _seikaicnt++;
                 } else {
                   _kekka = false;
                 }
-                //AnswerPage からの戻り値をreturnTextに格納
                 final returnText = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      //引数　①正解か不正解か　②何問目か　③正解した数
+                      //★③ 正解数を引数で渡す
                       return AnswerPage(_kekka, _answerdisp, _seikaicnt);
                     },
                   ),
                 );
-                //AnswerPageから戻り値がある場合が次の問題にカウントアップ
-                //AppBerから戻った場合はここは通らない（問題のカウントアップをしないので次の問題に切り替わらない）
                 if (returnText != null) {
                   //カウントアップした後再読み込み
                   setState(() {
@@ -143,23 +139,23 @@ class _QuizListPageState extends State<QuizListPage> {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () async {
-                // 正解不正解の判定 正解:true 不正解:false
-                // ２番のボタンが正解の場合は「correct」の値が２
                 if (quilist[_answercnt]["correct"] == 2) {
                   _kekka = true;
+                  //★② 正解数をカウントする
                   _seikaicnt++;
                 } else {
                   _kekka = false;
                 }
-                //AnswerPage からの戻り値をreturnTextに格納
                 final returnText = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
+                      //★③ 正解数を引数で渡す
                       return AnswerPage(_kekka, _answerdisp, _seikaicnt);
                     },
                   ),
                 );
                 if (returnText != null) {
+                  //カウントアップした後再読み込み
                   setState(() {
                     _answercnt++;
                     _answerdisp++;
@@ -171,23 +167,23 @@ class _QuizListPageState extends State<QuizListPage> {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () async {
-                // 正解不正解の判定 正解:true 不正解:false
-                // １番のボタンが正解の場合は「correct」の値が３
                 if (quilist[_answercnt]["correct"] == 3) {
                   _kekka = true;
+                  //★② 正解数をカウントする
                   _seikaicnt++;
                 } else {
                   _kekka = false;
                 }
-                //AnswerPage からの戻り値をreturnTextに格納
                 final returnText = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
+                      //★③ 正解数を引数で渡す
                       return AnswerPage(_kekka, _answerdisp, _seikaicnt);
                     },
                   ),
                 );
                 if (returnText != null) {
+                  //カウントアップした後再読み込み
                   setState(() {
                     _answercnt++;
                     _answerdisp++;
@@ -209,11 +205,11 @@ class _QuizListPageState extends State<QuizListPage> {
 }
 
 class AnswerPage extends StatefulWidget {
-  // ここにイニシャライザを書く
-  //元の画面からデータ受け取る
+  //★④ 正解数を受け取る
   AnswerPage(this._kekka, this._answerdisp, this._seikaicnt);
   bool _kekka;
   int _answerdisp;
+  //★④
   int _seikaicnt;
 
   @override
@@ -221,8 +217,6 @@ class AnswerPage extends StatefulWidget {
 }
 
 class _AnswerPageState extends State<AnswerPage> {
-  // ---------------関数--------------
-  //Widget内でDartの文法を直接かくことはできない、関数にする
   //----- 正解不正解表示　-----
   Widget _kekkaText() {
     if (widget._kekka) {
@@ -233,7 +227,6 @@ class _AnswerPageState extends State<AnswerPage> {
   }
 
   //----- ボタンの表示を切り替える -----
-  //最終問題のときは「結果を表示」とする
   Widget _buttonText() {
     if (widget._answerdisp < 5) {
       return Text('次の問題');
@@ -253,7 +246,6 @@ class _AnswerPageState extends State<AnswerPage> {
         child: Column(
           children: [
             const SizedBox(height: 8),
-            //Widgetの中でDart使う場合は関数を作ってTextを返す
             _kekkaText(),
             const SizedBox(height: 8),
             ElevatedButton(
@@ -266,6 +258,7 @@ class _AnswerPageState extends State<AnswerPage> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
+                        //★⑤ 正解数を総合結果画面に渡す
                         return KekkaPage(widget._seikaicnt);
                       },
                     ),
@@ -282,6 +275,7 @@ class _AnswerPageState extends State<AnswerPage> {
 }
 
 class KekkaPage extends StatefulWidget {
+  //★⑥ 総合結果画面で受け取る
   // const KekkaPage({super.key});
   KekkaPage(this._seikaicnt);
   int _seikaicnt;
@@ -300,6 +294,8 @@ class _KekkaPageState extends State<KekkaPage> {
       ),
       body: Center(
         child: Column(
+          //★⑦ 正解の数を表示
+          //ここから↓
           children: [
             const SizedBox(height: 8),
             // intからstring型に変換して表示
@@ -317,6 +313,7 @@ class _KekkaPageState extends State<KekkaPage> {
             ),
           ],
         ),
+        //ここまで↑
       ),
     );
   }
