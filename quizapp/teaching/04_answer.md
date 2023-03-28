@@ -25,7 +25,7 @@ class _QuizListPageState extends State<QuizListPage> {
       "answer1": "北岳",
       "answer2": "富士山",
       "answer3": "奥穂高岳",
-      "correct": 1
+      "correct": 2
     },
     {
       "question": "日本で１番長い川は？",

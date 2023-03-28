@@ -27,7 +27,7 @@ class _QuizListPageState extends State<QuizListPage> {
       "answer1": "北岳",
       "answer2": "富士山",
       "answer3": "奥穂高岳",
-      "correct": 1
+      "correct": 2            //正解の番号を入れておく、answerの後ろの番号
     },
     {
       "question": "日本で１番長い川は？",
@@ -91,6 +91,7 @@ class _QuizListPageState extends State<QuizListPage> {
             ),
             const SizedBox(height: 8),
             ElevatedButton(
+              //popして前の画面に戻る
               onPressed: Navigator.of(context).pop,
               child: const Text('startに戻る'),
             ),

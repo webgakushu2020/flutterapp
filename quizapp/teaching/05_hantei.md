@@ -206,7 +206,7 @@ class _AnswerPageState extends State<AnswerPage> {
 
 #### **【結果】**  
 
-- [ ] 回答ボタンを押した時、結果画面に遷移する
+- [ ] 正解の場合「正解です」不正解の場合「不正解です」の文字が切り替わる
 
 ![結果](img/05-1_result.png)
 ![結果](img/05-2_result.png)
