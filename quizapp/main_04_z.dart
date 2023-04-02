@@ -1,28 +1,58 @@
-# クイズアプリを作ろう 03
+import 'package:flutter/material.dart';
 
-## 03_quizdisplay
+void main() {
+  runApp(const MyApp());
+}
 
-### 出題画面にクイズを表示
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-#### **【課題】**
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.yellow, fontFamily: "ZenMaru"),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.yellow,
+        fontFamily: 'ZenMaru',
+      ),
+      home: StartPage(),
+    );
+  }
+}
 
-- [ ] クイズの内容を配列のデータとして作成
-- [ ] 配列のデータを画面に表示
-- [ ] //★の部分を追加する
+class StartPage extends StatefulWidget {
+  const StartPage({Key? key}) : super(key: key);
 
-#### **【ポイント】**
+  @override
+  _StartPageState createState() => _StartPageState();
+}
 
-- ①クイズ一覧をmapに格納しよう
-- ②1問目のクイズを表示させよう
+class _StartPageState extends State<StartPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+          child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return QuizListPage();
+          }));
+        },
+        child: Text('START'),
+      )),
+    );
+  }
+}
 
-#### **【ソースコード】**
+class QuizListPage extends StatefulWidget {
+  const QuizListPage({Key? key}) : super(key: key);
 
-```Dart
-// class QuizListPageまで省略
+  @override
+  _QuizListPageState createState() => _QuizListPageState();
+}
 
 class _QuizListPageState extends State<QuizListPage> {
-
-  // ★①クイズ一覧をmapに格納しよう
   List<Map<String, dynamic>> quizlist = [
     {
       "question": "日本で一番高い山は？",
@@ -60,7 +90,6 @@ class _QuizListPageState extends State<QuizListPage> {
       "correct": 2
     },
   ];
-  // ここまで
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +99,6 @@ class _QuizListPageState extends State<QuizListPage> {
         title: Text('問題'),
       ),
       body: Center(
-
-        // ★②1問目のクイズを表示させよう
         child: Column(
           children: [
             Container(
@@ -97,17 +124,7 @@ class _QuizListPageState extends State<QuizListPage> {
             )
           ],
         ),
-        // ここまで
-
       ),
     );
   }
 }
-
-```
-
-#### **【結果】**  
-
-- [ ] １問目の情報が表示されること  
-
-![結果](img/03_result.png)

@@ -7,15 +7,18 @@
 #### **【課題】**
 
 - [ ] 新しくプロジェクトを作成
-- quizappという名前でプロジェクトを作成
+- quizappという名前でディレクトリ、プロジェクトを作成
 
-- [ ] 下記のソースコードをコピー
-- 最初にmain.dartのコードを全て削除してから書こう
+- [ ] 下記のソースコードを書き写そう
+- 使うところ以外は全て消してから、書いていこう
+- 既にある「MyApp」以外に「StartPage」と「_StartPageState」という2つのクラスを作ろう
 
 #### **【ポイント】**
 
-- [ ] ベースは転用できるプログラムをコピーして再利用しよう
-- [ ] 画面設計を作ってからコーディングを始めましょう
+- [ ] 画面設計を作ってからコーディングを始めよう
+- [ ] プログラムのベースは、既にあるものを利用しよう
+- [ ] テーマカラーは、好きな色を設定しよう
+- [ ] ダークテーマも設定しよう
 
 #### **【ソースコード】**
 
@@ -27,10 +30,18 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      // Colors.この部分 で好きな色を設定しよう
+      theme: ThemeData(primarySwatch: Colors.yellow),
+      // ダークテーマの設定
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.yellow,
+      ),
       home: StartPage(),
     );
   }
@@ -40,7 +51,7 @@ class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
 
   @override
-  State<StartPage> createState() => _StartPageState();
+  _StartPageState createState() => _StartPageState();
 }
 
 class _StartPageState extends State<StartPage> {
@@ -48,11 +59,10 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {},
-          child: const Text('START'),
-        ),
-      ),
+          child: ElevatedButton(
+        onPressed: () {},
+        child: Text('START'),
+      )),
     );
   }
 }

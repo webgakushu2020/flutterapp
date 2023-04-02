@@ -7,16 +7,18 @@
 #### **【課題】**
 
 - [ ] 出題画面のベースをつくる
-- [ ] //★の部分を追加する
+- ①ボタンを押したら、クイズリストのページに飛ぶ設定
+- ②クイズリスト（QuizListPage）のクラスを追加
 
 #### **【ポイント】**
 
-- 新しい画面を作る時は「class:StatefulWidget」と「class:State<>」をセットで作ることを意識してみよう
-- 　
+- 新しい画面を作る時は「class:StatefulWidget」と「class:State<>」をセットで作ることを意識しよう
 
 #### **【ソースコード】**
 
 ```Dart
+// class StartPageまで省略
+
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,7 @@ class _StartPageState extends State<StartPage> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            //★クイズリストページに遷移
-            //★ここから↓
+            // ★①ボタンを押したら、クイズリストのページに飛ぶ設定
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
@@ -33,7 +34,7 @@ class _StartPageState extends State<StartPage> {
                 },
               ),
             );
-            //★ここまで↑
+            // ここまで
           },
           child: const Text('START'),
         ),
@@ -42,10 +43,9 @@ class _StartPageState extends State<StartPage> {
   }
 }
 
-//★ 出題画面を追加
-//★ここから↓
+// ★②クイズリスト（QuizListPage）のクラスを追加
 class QuizListPage extends StatefulWidget {
-  const QuizListPage({super.key});
+  const QuizListPage({Key? key}) : super(key: key);
 
   @override
   _QuizListPageState createState() => _QuizListPageState();
@@ -57,13 +57,13 @@ class _QuizListPageState extends State<QuizListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('問題表示'),
+        title: Text('問題'),
       ),
       body: Center(),
     );
   }
 }
-//★ここまで↑
+// ここまで
 ```
 
 #### **【結果】**  
