@@ -6,8 +6,9 @@
 
 #### **【課題】**
 
-- [ ] ①最終問題かどうか調べ、最終問題の場合は②AnswerPage（結果画面）のボタン表示を「結果を表示」に切り替える
-- [ ] ②「結果を表示」ボタンが押されたら、KekkaPage（総合結果画面）に遷移する
+- [ ] ①結果表示画面ResultPageを追加
+- [ ] ②最終問題かどうかの判定用if文を追加 最終問題ならば総合結果表示ページへ（_AnswerPageState内）
+- [ ] ③最終問題であれば、テキストを「結果表示」に変更（_AnswerPageState内）
 - [ ] //★の部分を追加する
 
 #### **【ポイント】**
@@ -17,92 +18,75 @@
 #### **【ソースコード】**
 
 ```Dart
-class AnswerPage extends StatefulWidget {
-  AnswerPage(this._kekka, this._answerdisp);
-  bool _kekka;
-  int _answerdisp;
 
+// _QuizListPageStateまで省略
+
+class AnswerPage extends StatefulWidget {
+  AnswerPage(this._result, this._quiznum);
+  bool _result;
+  int _quiznum;
   @override
   _AnswerPageState createState() => _AnswerPageState();
 }
 
 class _AnswerPageState extends State<AnswerPage> {
-  //----- 正解不正解表示　-----
-  Widget _kekkaText() {
-    if (widget._kekka) {
-      return Text('正解です');
-    } else {
-      return Text('不正解です');
-    }
-  }
+  Widget _resultText() {
+    String _text = '';
 
-  //----- ボタンの表示を切り替える -----
-  //★②最終問題のときは「結果を表示」とする
-  //ここから↓
-  Widget _buttonText() {
-    if (widget._answerdisp < 5) {
-      return Text('次の問題');
+    if (widget._result == true) {
+      _text = '正解です！';
     } else {
-      return Text('結果を表示');
+      _text = '不正解です…';
     }
-  }
-  //ここまで↑
 
+    return Text(_text);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('結果'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            _kekkaText(),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                //★③　　最終問題の場合はKekkaPageに画面遷移
-                //Navigator.of(context).pop(widget._answerdisp);
-                //ここから↓
-                if (widget._answerdisp < 5) {
-                  //前画面へ戻る（何問目かを返す）
-                  Navigator.of(context).pop(widget._answerdisp);
-                } else {
-                  // 最終問題の場合　結果画面へ遷移
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return KekkaPage();
-                      },
-                    ),
-                  );
-                }
-                //ここまで↑
-              },
-              //★①　ボタンの文字を切り替える　関数を作成
-              //child: Text('次の問題'),削除
-              child: _buttonText(),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('結果'),
+          automaticallyImplyLeading: false,
         ),
-      ),
-    );
+        body: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: _resultText(),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // ★②最終問題かどうかの判定用if文を追加 最終問題ならば総合結果表示ページへ
+                  if (widget._quiznum < 5) {
+                    Navigator.of(context).pop(widget._quiznum);
+                  } else {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return ResultPage();
+                    }));
+                  }
+                },
+                // ★③最終問題であれば、テキストを「結果表示」に変更
+                child: Text(widget._quiznum < 5 ? '次の問題' : '総合結果'),
+              )
+            ],
+          ),
+        ));
   }
 }
 
-//★④ 結果画面を追加
-//ここから↓
-class KekkaPage extends StatefulWidget {
-  const KekkaPage({super.key});
+// ★①結果表示画面ResultPageを追加
+
+class ResultPage extends StatefulWidget {
+  const ResultPage({super.key});
 
   @override
-  _KekkaPageState createState() => _KekkaPageState();
+  _ResultPageState createState() => _ResultPageState();
 }
 
-class _KekkaPageState extends State<KekkaPage> {
+class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +98,8 @@ class _KekkaPageState extends State<KekkaPage> {
     );
   }
 }
-//ここまで↑
+
+// ここまで
 ```
 
 #### **【結果】**  
