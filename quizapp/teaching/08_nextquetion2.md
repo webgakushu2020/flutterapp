@@ -6,10 +6,13 @@
 
 #### **【課題】**
 
-- [ ] ①_answerdisp(問題番号)をAnswerPage（結果画面）に渡す
-- [ ] ②AnswerPage（結果画面）で受け取る
-- [ ] ③AnswerPage（結果画面）で「次の問題」ボタンが押されたら、出題画面にPOPで戻る
-- [ ] ④出題画面に戻り、次の問題を表示する
+- [ ] ①AnswerPageで受け取る引数を追加（AnswerPage内）
+- [ ] ②AnswerPageで使う「何問目か」の変数を設定（AnswerPage内）
+- [ ] ③{}の中に「次の問題」ボタンが押されたら、今何問目か？を返す処理を書く（_AnswerPageState内）
+- [ ] ④onPressed()の後に「async」をつける（_QuizListPageState内、全てのElevatedButtonに同じ処理）
+- [ ] ⑤Navigator.of〜の前に final returnText = await をつける_QuizListPageState内、全てのElevatedButtonに同じ処理）
+- [ ] ⑥AnswerPageの引数に _quiznum を追加_QuizListPageState内、全てのElevatedButtonに同じ処理）
+- [ ] ⑦_answercntと_quiznumをプラスする処理を書く_QuizListPageState内、全てのElevatedButtonに同じ処理）
 - [ ] //★の部分を追加する
 
 #### **【ポイント】**
@@ -19,47 +22,26 @@
 #### **【ソースコード】**
 
 ```Dart
-class _QuizListPageState extends State<QuizListPage> {
-  bool _kekka = true; //正解：true 不正解：false
-  int _answercnt = 0; //何問目かListのindexに使用
-  int _answerdisp = 1; //何問目か表示用
 
-  List<Map<String, dynamic>> quilist = [
-    {
-      "question": "日本で１番高い山は？",
-      "answer1": "北岳",
-      "answer2": "富士山",
-      "answer3": "奥穂高岳",
-      "correct": 2
-    },
-    {
-      "question": "日本で１番長い川は？",
-      "answer1": "信濃川",
-      "answer2": "利根川",
-      "answer3": "石狩川",
-      "correct": 1
-    },
-    {
-      "question": "3問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 1
-    },
-    {
-      "question": "４問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 2
-    },
-    {
-      "question": "5問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 0
-    },
+// QuizListPageまで省略
+class _QuizListPageState extends State<QuizListPage> {
+  int _answercnt = 0;
+  int _quiznum = 1;
+
+  bool check(num) {
+    bool _result = true;
+
+    if (quizlist[_answercnt]["correct"] == num) {
+      _result = true;
+    } else {
+      _result = false;
+    }
+
+    return _result;
+  }
+
+  List<Map<String, dynamic>> quizlist = [
+    // 内容省略
   ];
 
   @override
@@ -67,166 +49,139 @@ class _QuizListPageState extends State<QuizListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('$_answerdisp問目'),
+        title: Text('$_quiznum問目'),
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            Text(quilist[_answercnt]["question"]),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              //★④ 結果画面で「次の問題」ボタンが押された時の戻り処理
-              //★④ 非同期処理　 async
-              onPressed: () async {
-                if (quilist[_answercnt]["correct"] == 1) {
-                  _kekka = true;
-                } else {
-                  _kekka = false;
-                }
-                //★④ AnswerPage からの戻り値をreturnTextに
-                //★④ awaitで戻ってくるまで、次の処理が実行されないようにする
-                //final returnText = await を　Navigetorの前につける
-                final returnText = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★① 引数に「_answerdisp」を追加
-                      return AnswerPage(_kekka, _answerdisp);
-                    },
-                  ),
-                );
-                //★④ AnswerPageから戻り値がある場合が次の問題にカウントアップ
-                //★④ AppBerから戻った場合はここは通らない（問題のカウントアップをしないので次の問題に切り替わらない）
-                //ここから↓
-                if (returnText != null) {
-                  //カウントアップした後再読み込み
-                  setState(() {
-                    _answercnt++;
-                    _answerdisp++;
-                  });
-                }
-                //ここまで↑
-              },
-              child: Text(quilist[_answercnt]["answer1"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              //★④ 他のボタンも同様に修正
-              onPressed: () async {
-                if (quilist[_answercnt]["correct"] == 2) {
-                  _kekka = true;
-                } else {
-                  _kekka = false;
-                }
-                //★④ 他のボタンも同様に修正
-                final returnText = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★① 引数に「_answerdisp」を追加
-                      return AnswerPage(_kekka, _answerdisp);
-                    },
-                  ),
-                );
-                //★④ 他のボタンも同様に修正
-                if (returnText != null) {
-                  //カウントアップした後再読み込み
-                  setState(() {
-                    _answercnt++;
-                    _answerdisp++;
-                  });
-                }
-              },
-              child: Text(quilist[_answercnt]["answer2"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              //★④ 他のボタンも同様に修正
-              onPressed: () async {
-                if (quilist[_answercnt]["correct"] == 3) {
-                  _kekka = true;
-                } else {
-                  _kekka = false;
-                }
-                //★④ 他のボタンも同様に修正
-                final returnText = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★① 引数に「_answerdisp」を追加
-                      return AnswerPage(_kekka, _answerdisp);
-                    },
-                  ),
-                );
-                //★④ 他のボタンも同様に修正
-                if (returnText != null) {
-                  //カウントアップした後再読み込み
-                  setState(() {
-                    _answercnt++;
-                    _answerdisp++;
-                  });
-                }
-              },
-              child: Text(quilist[_answercnt]["answer3"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
+        child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(30.0),
+            child: Text(quizlist[_answercnt]["question"]),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  // ★④onPressed()の後に「async」をつける
+                  onPressed: () async {
+                    // ★⑤Navigator.of〜の前に final returnText = await をつける
+                    final returnText = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          // ★⑥AnswerPageの引数に _quiznum を追加
+                          return AnswerPage(check(1), _quiznum);
+                        },
+                      ),
+                    );
+                    // ★⑦_answercntと_quiznumをプラスする処理を書く
+                    if (returnText != null) {
+                      setState(() {
+                        _answercnt++;
+                        _quiznum++;
+                      });
+                    }
+                  },
+                  child: Text(quizlist[_answercnt]["answer1"])),
+              ElevatedButton(
+                  // ★
+                  onPressed: () async {
+                    final returnText = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AnswerPage(check(2), _quiznum);
+                        },
+                      ),
+                    );
+                    if (returnText != null) {
+                      setState(() {
+                        _answercnt++;
+                        _quiznum++;
+                      });
+                    }
+                  },
+                  child: Text(quizlist[_answercnt]["answer2"])),
+              ElevatedButton(
+                  onPressed: () async {
+                    final returnText = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AnswerPage(check(3), _quiznum);
+                        },
+                      ),
+                    );
+                    if (returnText != null) {
+                      setState(() {
+                        _answercnt++;
+                        _quiznum++;
+                      });
+                    }
+                  },
+                  child: Text(quizlist[_answercnt]["answer3"])),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 50),
+            child: TextButton(
               onPressed: Navigator.of(context).pop,
-              child: const Text('startに戻る'),
+              child: Text('STARTに戻る'),
             ),
-          ],
-        ),
+          )
+        ]),
       ),
     );
   }
 }
 
 class AnswerPage extends StatefulWidget {
-  // ★② 引数追加
-  AnswerPage(this._kekka, this._answerdisp);
-  bool _kekka;
-  // ★②
-  int _answerdisp;
-
+  // ★①AnswerPageで受け取る引数を追加
+  AnswerPage(this._result, this._quiznum);
+  bool _result;
+  // ★②AnswerPageで使う「何問目か」の変数を設定
+  int _quiznum;
   @override
   _AnswerPageState createState() => _AnswerPageState();
 }
 
 class _AnswerPageState extends State<AnswerPage> {
-  //----- 正解不正解表示　-----
-  Widget _kekkaText() {
-    if (widget._kekka) {
-      return Text('正解です');
+  Widget _resultText() {
+    String _text = '';
+
+    if (widget._result == true) {
+      _text = '正解です！';
     } else {
-      return Text('不正解です');
+      _text = '不正解です…';
     }
+
+    return Text(_text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('結果'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            _kekkaText(),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                // ★③ 「次の問題」ボタンが押された時に何問目かを前の画面に戻す
-                Navigator.of(context).pop(widget._answerdisp);
-              },
-              child: Text('次の問題'),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('結果'),
+          automaticallyImplyLeading: false,
         ),
-      ),
-    );
+        body: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: _resultText(),
+              ),
+              ElevatedButton(
+                // ★③{}の中に「次の問題」ボタンが押されたら、今何問目か？を返す処理を書く
+                onPressed: () {
+                  Navigator.of(context).pop(widget._quiznum);
+                },
+                child: Text('次の問題'),
+              )
+            ],
+          ),
+        ));
   }
 }
+
 ```
 
 #### **【結果】**  

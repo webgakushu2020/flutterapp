@@ -18,43 +18,11 @@
 #### **【ソースコード】**
 
 ```Dart
+// QuizListPage までは省略
+
 class _QuizListPageState extends State<QuizListPage> {
   List<Map<String, dynamic>> quilist = [
-    {
-      "question": "日本で１番高い山は？",
-      "answer1": "北岳",
-      "answer2": "富士山",
-      "answer3": "奥穂高岳",
-      "correct": 2
-    },
-    {
-      "question": "日本で１番長い川は？",
-      "answer1": "信濃川",
-      "answer2": "利根川",
-      "answer3": "石狩川",
-      "correct": 1
-    },
-    {
-      "question": "3問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 1
-    },
-    {
-      "question": "４問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 2
-    },
-    {
-      "question": "5問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 0
-    },
+    // 中身省略
   ];
 
   @override
@@ -62,76 +30,72 @@ class _QuizListPageState extends State<QuizListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('問題表示'),
+        title: Text('問題'),
       ),
       body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            Text(quilist[0]["question"]),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                //★① 結果画面へ画面遷移
-                //★ ここから↓
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return AnswerPage();
-                    },
-                  ),
-                );
-                //★ ここまで↑
-              },
-              child: Text(quilist[0]["answer1"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                //★② 結果画面へ画面遷移
-                //★ ①で追加したものコピペでOK↓
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return AnswerPage();
-                    },
-                  ),
-                );
-                //★ ここまで↑
-              },
-              child: Text(quilist[0]["answer2"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                //★② 結果画面へ画面遷移
-                //★ ①で追加したものコピペでOK↓
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return AnswerPage();
-                    },
-                  ),
-                );
-                //★ ここまで↑
-              },
-              child: Text(quilist[0]["answer3"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
+        child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(30.0),
+            child: Text(quizlist[0]["question"]),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  // ★①onPressedの{}の中身を記入(同じものなのでコピペでOK)
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AnswerPage();
+                        },
+                      ),
+                    );
+                    // ここまで
+                  },
+                  child: Text(quizlist[0]["answer1"])),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AnswerPage();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(quizlist[0]["answer2"])),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AnswerPage();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(quizlist[0]["answer3"])),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 50),
+            child: TextButton(
               onPressed: Navigator.of(context).pop,
-              child: const Text('startに戻る'),
+              child: Text('STARTに戻る'),
             ),
-          ],
-        ),
+          )
+        ]),
       ),
     );
   }
 }
 
-//★③ 結果画面のベースを作る
-//★ ここから↓
+// ★②結果画面を作る
+
 class AnswerPage extends StatefulWidget {
+  const AnswerPage({Key? key}) : super(key: key);
+
   @override
   _AnswerPageState createState() => _AnswerPageState();
 }
@@ -140,27 +104,28 @@ class _AnswerPageState extends State<AnswerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('結果'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            Text('結果表示'),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('次の問題'),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('結果'),
+          automaticallyImplyLeading: false, // 戻るボタンを削除
         ),
-      ),
-    );
+        body: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text('結果'),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text('次の問題'),
+              )
+            ],
+          ),
+        ));
   }
 }
-//★ ここまで↑
+
+// ここまで
 ```
 
 #### **【結果】**  

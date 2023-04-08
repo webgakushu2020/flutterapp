@@ -6,12 +6,12 @@
 
 #### **【課題】**
 
-- [ ] ①判定用の変数を宣言する
-- [ ] ②正解か不正解か判定する
-- [ ] ③判定した結果を次の画面に引数で渡す
-- [ ] ④次の画面で結果を受け取る
-- [ ] ⑤受け取った結果により、表示を変更
-- [ ] ⑥表示切り替えは関数で行う
+- [ ] ①check関数を作る 正解か不正解かの判定用
+- [ ] ②check関数を使用
+- [ ] ③const AnswerPage({Key? key}) : super(key: key);を消す
+- [ ] ④QuizListPageから受け取ったbool値を、AnswerPageで使える状態にする
+- [ ] ⑤結果を表示するWidgetの関数を作成
+- [ ] ⑥Text('結果')を削除し、作った関数を記入
 - [ ] //★の部分を追加する
 
 #### **【ポイント】**
@@ -22,46 +22,25 @@
 #### **【ソースコード】**
 
 ```Dart
-class _QuizListPageState extends State<QuizListPage> {
-  //★①変数宣言
-  bool _kekka = true; //正解：true 不正解：false
 
-  List<Map<String, dynamic>> quilist = [
-    {
-      "question": "日本で１番高い山は？",
-      "answer1": "北岳",
-      "answer2": "富士山",
-      "answer3": "奥穂高岳",
-      "correct": 2
-    },
-    {
-      "question": "日本で１番長い川は？",
-      "answer1": "信濃川",
-      "answer2": "利根川",
-      "answer3": "石狩川",
-      "correct": 1
-    },
-    {
-      "question": "3問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 1
-    },
-    {
-      "question": "４問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 2
-    },
-    {
-      "question": "5問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 0
-    },
+// QuizListPage まで省略
+
+class _QuizListPageState extends State<QuizListPage> {
+  // ★①check関数を作る
+  bool check(num) {
+    bool _result = true;
+
+    if (quizlist[0]["correct"] == num) {
+      _result = true;
+    } else {
+      _result = false;
+    }
+
+    return _result;
+  }
+
+  List<Map<String, dynamic>> quizlist = [
+    // 中身省略
   ];
 
   @override
@@ -69,137 +48,116 @@ class _QuizListPageState extends State<QuizListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('問題表示'),
+        title: Text('問題'),
       ),
       body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            Text(quilist[0]["question"]),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                //★② 正解不正解の判定 正解:true 不正解:false
-                //★ １番のボタンが正解の場合は「correct」の値が１
-                if (quilist[0]["correct"] == 1) {
-                  _kekka = true;
-                } else {
-                  _kekka = false;
-                }
-                //ここまで↑
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★③ _kekkaを次の画面へ渡す
-                      return AnswerPage(_kekka);
-                    },
-                  ),
-                );
-              },
-              child: Text(quilist[0]["answer1"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                //★② 正解不正解の判定 正解:true 不正解:false
-                //★ ２番のボタンが正解の場合は「correct」の値が２
-                if (quilist[0]["correct"] == 2) {
-                  _kekka = true;
-                } else {
-                  _kekka = false;
-                }
-                //ここまで↑
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★③ _kekkaを次の画面へ渡す
-                      return AnswerPage(_kekka);
-                    },
-                  ),
-                );
-              },
-              child: Text(quilist[0]["answer2"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                //★② 正解不正解の判定 正解:true 不正解:false
-                //★ 3番のボタンが正解の場合は「correct」の値が3
-                if (quilist[0]["correct"] == 3) {
-                  _kekka = true;
-                } else {
-                  _kekka = false;
-                }
-                //ここまで↑
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★③ _kekkaを次の画面へ渡す
-                      return AnswerPage(_kekka);
-                    },
-                  ),
-                );
-              },
-              child: Text(quilist[0]["answer3"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
+        child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(30.0),
+            child: Text(quizlist[0]["question"]),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          // ★②check関数を使用
+                          return AnswerPage(check(1));
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(quizlist[0]["answer1"])),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          // ★②check関数を使用
+                          return AnswerPage(check(2));
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(quizlist[0]["answer2"])),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          // ★②check関数を使用
+                          return AnswerPage(check(3));
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(quizlist[0]["answer3"])),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 50),
+            child: TextButton(
               onPressed: Navigator.of(context).pop,
-              child: const Text('startに戻る'),
+              child: Text('STARTに戻る'),
             ),
-          ],
-        ),
+          )
+        ]),
       ),
     );
   }
 }
 
+
 class AnswerPage extends StatefulWidget {
-  //★④ 前の画面から結果を受け取る
-  //thisをつけて、このクラス内で使用する変数を作る
-  AnswerPage(this._kekka);
-  bool _kekka;
+  // ★③const AnswerPage({Key? key}) : super(key: key);を消す
+  // ★④QuizListPageから受け取ったbool値を、AnswerPageで使える状態にする
+  AnswerPage(this._result);
+  bool _result;
 
   @override
   _AnswerPageState createState() => _AnswerPageState();
 }
 
 class _AnswerPageState extends State<AnswerPage> {
-// ---------------関数--------------
-  //★⑥ if文で判定して、Widgetをreturnで返す
-  //----- 正解不正解表示　-----
-  Widget _kekkaText() {
-    if (widget._kekka) {
-      return Text('正解です');
+  
+  // ★⑤結果を表示するWidgetの関数を作成
+  Widget _resultText() {
+    String _text = '';
+
+    if (widget._result == true) {
+      _text = '正解です！';
     } else {
-      return Text('不正解です');
+      _text = '不正解です…';
     }
+
+    return Text(_text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('結果'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            //★⑤ 正解不正解の文字列を切り替える
-            //widget内でDartプログラクラムを書くことができない　関数を作る
-            //Text('結果表示'), を削除
-            _kekkaText(),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('次の問題'),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('結果'),
+          automaticallyImplyLeading: false, // 戻るボタンを削除
         ),
-      ),
-    );
+        body: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                // ★⑥Text('結果')を削除し、作った関数を記入
+                child: _resultText(),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text('次の問題'),
+              )
+            ],
+          ),
+        ));
   }
 }
 ```

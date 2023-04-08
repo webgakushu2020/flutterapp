@@ -6,8 +6,13 @@
 
 #### **【課題】**
 
-- [ ] ①正解した数をカウントし、総合結果画面に渡す
-- [ ] ②
+- [ ] ①正解数をカウントする変数を作成（_QuizListPageState内）
+- [ ] ②正解だったら、正解数を+1する（_QuizListPageState内）
+- [ ] ③正解数を総合結果画面に渡す（_QuizListPageState内）
+- [ ] ④正解数を受け取る（AnswerPage内）
+- [ ] ⑤受け取った正解数の変数を作成（AnswerPage内）
+- [ ] ⑥総合結果画面で正解数を受け取る（ResultPage内）
+- [ ] ⑦結果表示(_ResultPageState内)
 - [ ] //★の部分を追加する
 
 #### **【ポイント】**
@@ -17,16 +22,32 @@
 #### **【ソースコード】**
 
 ```Dart
-class _QuizListPageState extends State<QuizListPage> {
-  bool _kekka = true; //正解：true 不正解：false
-  int _answercnt = 0; //何問目かListのindexに使用
-  int _answerdisp = 1; //何問目か表示用
-  //★① 正解数をカウントする変数宣言
-  int _seikaicnt = 0; //正解した数をカウント
+// QuizListPageまで省略
 
-  List<Map<String, dynamic>> quilist = [
+class _QuizListPageState extends State<QuizListPage> {
+  int _answercnt = 0;
+  int _quiznum = 1;
+
+  // ★①正解数をカウントする変数を作成
+  int _correctcnt = 0;
+
+  bool check(num) {
+    bool _result = true;
+
+    if (quizlist[_answercnt]["correct"] == num) {
+      _result = true;
+      // ★②正解だったら、正解数を+1する
+      _correctcnt++;
+    } else {
+      _result = false;
+    }
+
+    return _result;
+  }
+
+  List<Map<String, dynamic>> quizlist = [
     {
-      "question": "日本で１番高い山は？",
+      "question": "日本で一番高い山は？",
       "answer1": "北岳",
       "answer2": "富士山",
       "answer3": "奥穂高岳",
@@ -40,25 +61,25 @@ class _QuizListPageState extends State<QuizListPage> {
       "correct": 1
     },
     {
-      "question": "3問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
+      "question": "日本で一番広い湖は？",
+      "answer1": "霞ヶ浦",
+      "answer2": "サロマ湖",
+      "answer3": "琵琶湖",
+      "correct": 3
+    },
+    {
+      "question": "日本で一番広い県は？",
+      "answer1": "北海道",
+      "answer2": "広島県",
+      "answer3": "東京都",
       "correct": 1
     },
     {
-      "question": "４問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
+      "question": "日本で一番小さい県は？",
+      "answer1": "沖縄県",
+      "answer2": "香川県",
+      "answer3": "東京都",
       "correct": 2
-    },
-    {
-      "question": "5問目",
-      "answer1": "①",
-      "answer2": "②",
-      "answer3": "③",
-      "correct": 0
     },
   ];
 
@@ -67,191 +88,153 @@ class _QuizListPageState extends State<QuizListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('$_answerdisp問目'),
+        title: Text('$_quiznum問目'),
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            Text(quilist[_answercnt]["question"]),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                if (quilist[_answercnt]["correct"] == 1) {
-                  _kekka = true;
-                  //★② 正解数をカウントする
-                  _seikaicnt++;
-                } else {
-                  _kekka = false;
-                }
-                final returnText = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★③ 正解数を引数で渡す
-                      return AnswerPage(_kekka, _answerdisp, _seikaicnt);
-                    },
-                  ),
-                );
-                if (returnText != null) {
-                  //カウントアップした後再読み込み
-                  setState(() {
-                    _answercnt++;
-                    _answerdisp++;
-                  });
-                }
-              },
-              child: Text(quilist[_answercnt]["answer1"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                if (quilist[_answercnt]["correct"] == 2) {
-                  _kekka = true;
-                  //★② 正解数をカウントする
-                  _seikaicnt++;
-                } else {
-                  _kekka = false;
-                }
-                final returnText = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★③ 正解数を引数で渡す
-                      return AnswerPage(_kekka, _answerdisp, _seikaicnt);
-                    },
-                  ),
-                );
-                if (returnText != null) {
-                  //カウントアップした後再読み込み
-                  setState(() {
-                    _answercnt++;
-                    _answerdisp++;
-                  });
-                }
-              },
-              child: Text(quilist[_answercnt]["answer2"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                if (quilist[_answercnt]["correct"] == 3) {
-                  _kekka = true;
-                  //★② 正解数をカウントする
-                  _seikaicnt++;
-                } else {
-                  _kekka = false;
-                }
-                final returnText = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      //★③ 正解数を引数で渡す
-                      return AnswerPage(_kekka, _answerdisp, _seikaicnt);
-                    },
-                  ),
-                );
-                if (returnText != null) {
-                  //カウントアップした後再読み込み
-                  setState(() {
-                    _answercnt++;
-                    _answerdisp++;
-                  });
-                }
-              },
-              child: Text(quilist[_answercnt]["answer3"]),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
+        child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(30.0),
+            child: Text(quizlist[_answercnt]["question"]),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  onPressed: () async {
+                    final returnText = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          // ②正解数を結果画面に渡す
+                          return AnswerPage(check(1), _quiznum, _correctcnt);
+                        },
+                      ),
+                    );
+                    if (returnText != null) {
+                      setState(() {
+                        _answercnt++;
+                        _quiznum++;
+                      });
+                    }
+                  },
+                  child: Text(quizlist[_answercnt]["answer1"])),
+              ElevatedButton(
+                  onPressed: () async {
+                    final returnText = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AnswerPage(check(2), _quiznum, _correctcnt);
+                        },
+                      ),
+                    );
+                    if (returnText != null) {
+                      setState(() {
+                        _answercnt++;
+                        _quiznum++;
+                      });
+                    }
+                  },
+                  child: Text(quizlist[_answercnt]["answer2"])),
+              ElevatedButton(
+                  onPressed: () async {
+                    final returnText = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AnswerPage(check(3), _quiznum, _correctcnt);
+                        },
+                      ),
+                    );
+                    if (returnText != null) {
+                      setState(() {
+                        _answercnt++;
+                        _quiznum++;
+                      });
+                    }
+                  },
+                  child: Text(quizlist[_answercnt]["answer3"])),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 50),
+            child: TextButton(
               onPressed: Navigator.of(context).pop,
-              child: const Text('startに戻る'),
+              child: Text('STARTに戻る'),
             ),
-          ],
-        ),
+          )
+        ]),
       ),
     );
   }
 }
 
 class AnswerPage extends StatefulWidget {
-  //★④ 正解数を受け取る
-  AnswerPage(this._kekka, this._answerdisp, this._seikaicnt);
-  bool _kekka;
-  int _answerdisp;
-  //★④
-  int _seikaicnt;
-
+  // ★③正解数を受け取る
+  AnswerPage(this._result, this._quiznum, this._correctcnt);
+  bool _result;
+  int _quiznum;
+  // ★④受け取った正解数の変数を作成
+  int _correctcnt;
   @override
   _AnswerPageState createState() => _AnswerPageState();
 }
 
 class _AnswerPageState extends State<AnswerPage> {
-  //----- 正解不正解表示　-----
-  Widget _kekkaText() {
-    if (widget._kekka) {
-      return Text('正解です');
-    } else {
-      return Text('不正解です');
-    }
-  }
+  Widget _resultText() {
+    String _text = '';
 
-  //----- ボタンの表示を切り替える -----
-  Widget _buttonText() {
-    if (widget._answerdisp < 5) {
-      return Text('次の問題');
+    if (widget._result == true) {
+      _text = '正解です！';
     } else {
-      return Text('結果を表示');
+      _text = '不正解です…';
     }
+
+    return Text(_text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('結果'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-            _kekkaText(),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                if (widget._answerdisp < 5) {
-                  //前画面へ戻る（何問目かを返す）
-                  Navigator.of(context).pop(widget._answerdisp);
-                } else {
-                  // 最終問題の場合　結果画面へ遷移
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        //★⑤ 正解数を総合結果画面に渡す
-                        return KekkaPage(widget._seikaicnt);
-                      },
-                    ),
-                  );
-                }
-              },
-              child: _buttonText(),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('結果'),
+          automaticallyImplyLeading: false,
         ),
-      ),
-    );
+        body: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: _resultText(),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (widget._quiznum < 5) {
+                    Navigator.of(context).pop(widget._quiznum);
+                  } else {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      // ★⑤正解数を総合結果画面に渡す
+                      return ResultPage(widget._correctcnt);
+                    }));
+                  }
+                },
+                child: Text(widget._quiznum < 5 ? '次の問題' : '総合結果'),
+              )
+            ],
+          ),
+        ));
   }
 }
 
-class KekkaPage extends StatefulWidget {
-  //★⑥ 総合結果画面で受け取る
-  // const KekkaPage({super.key});
-  KekkaPage(this._seikaicnt);
-  int _seikaicnt;
+class ResultPage extends StatefulWidget {
+  // ★⑤総合結果画面で正解数を受け取る const ResultPage({super.key}); を削除
+  ResultPage(this._correctcnt);
+  int _correctcnt;
 
   @override
-  _KekkaPageState createState() => _KekkaPageState();
+  _ResultPageState createState() => _ResultPageState();
 }
 
-class _KekkaPageState extends State<KekkaPage> {
+class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -260,32 +243,24 @@ class _KekkaPageState extends State<KekkaPage> {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Column(
-          //★⑦ 正解の数を表示
-          //ここから↓
-          children: [
-            const SizedBox(height: 8),
-            // intからstring型に変換して表示
-            Text(widget._seikaicnt.toString() + '問正解です'),
-            const SizedBox(height: 8),
-            Text('おつかれさまでした!'),
-            const SizedBox(height: 8),
-            ElevatedButton(
+        // ★⑦結果表示
+        child: Column(children: [
+          Padding(
+              padding: EdgeInsets.all(60),
+              child: Text(widget._correctcnt.toString() + '問正解です\nお疲れ様でした！')),
+          ElevatedButton(
               onPressed: () {
-                //一気に初画面まで戻るために不要な画面情報をPOPする
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
-              child: const Text('startに戻る'),
-            ),
-          ],
-        ),
-        //ここまで↑
+              child: Text('STARTに戻る'))
+        ]),
       ),
     );
   }
 }
+
 ```
 
 #### **【結果】**  
