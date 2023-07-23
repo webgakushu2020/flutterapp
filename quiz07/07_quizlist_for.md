@@ -88,7 +88,7 @@ class _QuizListPageState extends State<QuizListPage> {
               ),
             ),
             const SizedBox(height: 30),
-            // ★① 1~4まで繰り返す
+            // ★① ElevatedButtonとSizedBoxをfor文で囲う　1~4まで繰り返す
             for (int i = 1; i <= 4; i++) ...{
               ElevatedButton(
                 // ★② 数字をiに置き換える
