@@ -88,8 +88,10 @@ class _QuizListPageState extends State<QuizListPage> {
               ),
             ),
             const SizedBox(height: 30),
+            // ★① 1~4まで繰り返す
             for (int i = 1; i <= 4; i++) ...{
               ElevatedButton(
+                // ★② 数字をiに置き換える
                 child: Text(quizlist[_listIndex]["answer$i"]),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.orange,
@@ -97,6 +99,7 @@ class _QuizListPageState extends State<QuizListPage> {
                   fixedSize: Size(200, 50),
                 ),
                 onPressed: () async {
+                  // ★③ ボタン番号をiに置き換える 
                   _selectButton = i;
                 },
               ),
