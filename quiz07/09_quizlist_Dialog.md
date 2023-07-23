@@ -4,7 +4,10 @@
 
 <br>
 
-① 「showDialog」を追加し「_kekkaText」を表示する  
+①　変数「_kekkaText」を作成し、初期値に空白を代入  
+②　変数「_correctCount」を作成し、初期値に０を代入  
+③　「answerSelect」関数の中で、正解・不正解の判定を追加
+④ 「showDialog」を追加し「_kekkaText」を表示する  
 
 <br>
 
@@ -15,7 +18,9 @@
 class _QuizListPageState extends State<QuizListPage> {
   int _listIndex = 0;
   int _selectButton = 0;
+  // ★① 「正解」「ざんねん」の文字列を入れる変数を作成
   String _kekkaText = "";
+  // ★② 正解数をカウントする変数を作成 
   int _correctCount = 0;
 
   List<Map<String, dynamic>> quizlist = [
@@ -62,15 +67,15 @@ class _QuizListPageState extends State<QuizListPage> {
   ];
 
   void answerSelect() {
+    // ★③ 正解番号と押したボタンの数値が一致したら「正解」
     if (quizlist[_listIndex]["correct"] == _selectButton) {
       _kekkaText = "正解！";
       _correctCount++; //正解数をカウント
     } else {
       _kekkaText = "ざんねん・・・";
     }
-    print(_kekkaText);
 
-    // ★① ダイアログ表示
+    // ★④ ダイアログ表示
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
