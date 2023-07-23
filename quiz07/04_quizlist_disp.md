@@ -4,7 +4,8 @@
 
 <br>
 
-① Listから１問目のデータを表示する
+① Listから１問目のデータを表示する  
+② Listから１問目の選択肢を表示する
 
 <br>
 
@@ -95,6 +96,7 @@ class _QuizListPageState extends State<QuizListPage> {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
+              // ★② 選択肢表示
               child: Text(quizlist[0]["answer1"]),
               style: ElevatedButton.styleFrom(
                 primary: Colors.orange,

@@ -105,6 +105,7 @@ class _StartPageState extends State<StartPage> {
               style: ElevatedButton.styleFrom(
                 primary: Colors.pink,
                 onPrimary: Colors.white,
+                fixedSize: Size(200, 50),
               ),
               onPressed: () {
                 Navigator.of(context).push(

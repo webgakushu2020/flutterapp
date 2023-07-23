@@ -58,10 +58,12 @@ class _▪️▪️▪️State extends State<▪️▪️▪️> {
 
 // ★③「QuizListPage」classを作成
 //「StartPage」classをコピーして、必要な箇所を変更する
+// 「title」を変更しよう
 
 
 // ★④「ResultPage」classを作成
 //「StartPage」classをコピーして、必要な箇所を変更する
+// 「title」を変更しよう
 
 ```
 

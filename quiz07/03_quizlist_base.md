@@ -1,6 +1,6 @@
 # **クイズアプリを作ろう 03**
 
-## **問題データを作る QuizListPage.class**
+## **クイズデータを作る QuizListPage.class**
 
 <br>
 
