@@ -1,6 +1,6 @@
 # **クイズアプリを作ろう 0６**
 
-## **選択肢ボタンが押された時の処理をつくろう　QuizListPage.class**
+## **選択肢ボタンの情報を管理しよう　QuizListPage.class**
 
 <br>
 
