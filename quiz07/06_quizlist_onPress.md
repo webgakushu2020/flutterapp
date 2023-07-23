@@ -1,11 +1,11 @@
 # **クイズアプリを作ろう 0６**
 
-## **回答ボタンが押された時の処理をつくろう　QuizListPage.class**
+## **選択肢ボタンが押された時の処理をつくろう　QuizListPage.class**
 
 <br>
 
 ① 変数「_selectButton」を作成し、初期値に０を代入  
-② 選択肢ボタンが押されたら、回答ボタンの番号を_selectButtonに代入する
+② 選択肢ボタンが押されたら、ボタンの番号を_selectButtonに代入する
 
 <br>
 
@@ -24,7 +24,7 @@ class QuizListPage extends StatefulWidget {
 
 class _QuizListPageState extends State<QuizListPage> {
   int _listIndex = 0;
-  // ★①　回答ボタンの番号
+  // ★①　選択肢ボタンの番号
   int _selectButton = 0;
 
   List<Map<String, dynamic>> quizlist = [
@@ -105,7 +105,7 @@ class _QuizListPageState extends State<QuizListPage> {
                 fixedSize: Size(200, 50),
               ),
               onPressed: () async {
-                // ★①　何番目の回答ボタンを押したか
+                // ★①　何番目のボタンが押されたか代入
                 _selectButton = 1;
               },
             ),
