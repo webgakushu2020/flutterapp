@@ -1,6 +1,6 @@
 # **クイズアプリを作ろう 05**
 
-## **インデックス番号を変数に置き換えよう QuizListPage.class**
+## **変数を使って問題を表示しよう QuizListPage.class**
 
 <br>
 
